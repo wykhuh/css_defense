@@ -1,0 +1,429 @@
+
+/* The z-index of home is greater than z-index of enemies so
+that home will be appear on top of the enemies.  */
+.home {
+  z-index: 100;
+  width: 75px;
+  height: 75px;
+  background: green;
+  left: 655px;
+  top: 405px;
+  position: relative;
+}
+
+/* Use position and float so the enemies will appear on top of each other
+when the game starts. */
+.enemy_1, .enemy_2, .enemy_3{
+  width: 50px;
+  height: 50px;
+  top: 30px;
+  left: 30px;
+  position: relative;
+  float: left;
+  -webkit-animation: 5s slidein infinite ;
+  -moz-animation: 5s slidein infinite ;
+  animation: 5s slidein infinite ;
+}
+
+/* Stagger the z index and animation delay of the three enemies 
+so that first enemy is the topmost piece and moves first. */
+
+/*square */
+.enemy_1 {
+  z-index: 100;
+  background: blue;
+}
+
+/* circle */
+.enemy_2 {
+  z-index: 90;
+  background: orange;
+  border-radius: 25px;
+  left: -20px;
+  -webkit-animation-delay: 2s;
+  -moz-animation-delay: 2s;
+  animation-delay: 2s;
+}
+
+/* triangle */
+.enemy_3 {
+  z-index: 80;
+  height: 0;
+  width: 0;
+  border-left: 25px solid transparent;
+  border-right: 25px solid transparent;
+  border-bottom: 50px solid red;
+  left: -70px;
+  -webkit-animation-delay: 4s;
+  -moz-animation-delay: 4s;
+  animation-delay: 4s;
+}
+
+/* Sets path for the enemies movements.
+The enemies move from the upper left corner to lower right corner. */
+
+@-webkit-keyframes slidein {
+  0% {
+    -webkit-transform:translate(0px,0px);
+  }
+  20% {
+    -webkit-transform:translate(0px,200px);
+  }
+  60% {
+    -webkit-transform:translate(400px,200px);
+  }
+  80% {
+    -webkit-transform:translate(400px,400px);
+  }
+  100% {
+    -webkit-transform:translate(650px,400px);
+  }
+}
+
+@-moz-keyframes slidein {
+  0% {
+    -moz-transform:translate(0px,0px);
+  }
+  20% {
+    -moz-transform:translate(0px,200px);
+  }
+  60% {
+    -moz-transform:translate(400px,200px);
+  }
+  80% {
+    -moz-transform:translate(400px,400px);
+  }
+  100% {
+    -moz-transform:translate(650px,400px);
+  }
+}
+
+@keyframes slidein {
+  0% {
+    transform:translate(0px,0px);
+  }
+  20% {
+    transform:translate(0px,200px);
+  }
+  60% {
+    transform:translate(400px,200px);
+  }
+  80% {
+    transform:translate(400px,400px);
+  }
+  100% {
+    transform:translate(650px,400px);
+  }
+}
+
+/* Renders the path that the enemies travel on. 
+
+Use !important to override the css rules listed in #board_towers a.
+  
+Normally, the path appears on top of the bullets. In order to see
+ the bullets cross the path, set the path opacity to 25%. */
+
+ #board_towers a[href="#1"], #board_towers a[href="#15"], #board_towers a[href="#29"],
+ #board_towers a[href="#43"], #board_towers a[href="#57"], #board_towers a[href="#58"], 
+ #board_towers a[href="#59"], #board_towers a[href="#60"], #board_towers a[href="#61"], 
+ #board_towers a[href="#62"], #board_towers a[href="#63"], #board_towers a[href="#64"], 
+ #board_towers a[href="#65"], #board_towers a[href="#79"], #board_towers a[href="#93"], 
+ #board_towers a[href="#107"], #board_towers a[href="#121"], #board_towers a[href="#122"], 
+ #board_towers a[href="#123"], #board_towers a[href="#124"], #board_towers a[href="#125"] {
+  background: #aaa;
+  color: #aaa !important;
+  -webkit-animation: none !important;
+  -moz-animation: none !important;
+  animation: none !important;
+  opacity: .25;
+}
+
+/*  The board  consists  of two grids of links that are laid on
+top of each other. One grid for the towers, one for the bullets. The 
+towers are on top of the bullets so that users can click the towers. 
+ 
+The links are white when they are not clicked, and black when they are clicked. 
+
+Each cell on one board have a different url. The corresponding cell on the two 
+boards share the same url so that when you click a cell on the  tower board, the
+corresponding cell on the bullet board will also appear. */
+
+#board_towers a, #board_bullets a {
+  margin: 0;
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  text-decoration: none;
+  color: white;
+  text-align: center;
+}
+
+#board_towers a:visited, #board_bullets  a:visited {
+  color: black;
+}
+
+#board_towers {
+  width: 700px;
+  height: 450px;
+  font-size: 50px;
+  line-height: 1em;
+  top:-50px;
+  left: 25px;
+  position: relative;
+  z-index: 50;
+  border: black solid 5px;
+}
+
+/* There are four options for how the towers rotate: fast to the right, fast to 
+the left, slow to the right, slow to the left. */
+#board_towers a:nth-child(4n+1) {  
+  -webkit-animation: 1s towers_right infinite ;
+  -moz-animation: 1s towers_right infinite ;
+  animation: 1s towers_right infinite ;
+}
+
+#board_towers a:nth-child(4n+2) {    
+  -webkit-animation: 2s towers_left infinite ;
+  -moz-animation: 2s towers_left infinite ;
+  animation: 2s towers_left infinite ;
+}
+
+#board_towers a:nth-child(4n+3) {    
+  -webkit-animation: 3s towers_right infinite ;
+  -moz-animation: 3s towers_right infinite ;
+  animation: 3s towers_right infinite ;
+}
+
+#board_towers a:nth-child(4n+4) {    
+  -webkit-animation: 4s towers_left infinite ;
+  -moz-animation: 4s towers_left infinite ;
+  animation: 4s towers_left infinite ;
+}
+
+/* spins to the right */
+@-webkit-keyframes towers_right {
+  0% {
+    -webkit-transform:rotate(0deg);
+  }
+  100% {
+    -webkit-transform:rotate(360deg);
+  }
+}
+
+@-moz-keyframes towers_right {
+  0% {
+    -moz-transform:rotate(0deg);
+  }
+  100% {
+    -moz-transform:rotate(360deg);
+  }
+}
+
+@keyframes towers_right {
+  0% {
+    transform:rotate(0deg);
+  }
+  100% {
+    transform:rotate(360deg);
+  }
+}
+
+/* spins to the left */
+@-webkit-keyframes towers_left {
+  0% {
+    -webkit-transform:rotate(360deg);
+  }
+  100% {
+    -webkit-transform:rotate(0deg);
+  }
+}
+
+@-moz-keyframes towers_left {
+  0% {
+    -moz-transform:rotate(360deg);
+  }
+  100% {
+    -moz-transform:rotate(0deg);
+  }
+}
+
+@keyframes towers_left {
+  0% {
+    transform:rotate(360deg);
+  }
+  100% {
+    transform:rotate(0deg);
+  }
+}
+
+#board_bullets {
+  width: 700px;
+  height: 450px;
+  font-size: 30px;
+  left: 30px;
+  top:-500px;
+  position: relative;
+}
+
+/* There are eight options about how the bullets move: down/up/left/right 
+and fast/slow */
+
+/* bullet moves  down */
+#board_bullets a:nth-child(8n +1) {
+  -webkit-animation: 1s bullet_down infinite ;
+  -moz-animation: 1s bullet_down infinite ;
+  animation: 1s bullet_down infinite ;
+}
+
+#board_bullets a:nth-child(8n +5) {
+  -webkit-animation: 3s bullet_down infinite ;
+  -moz-animation: 3s bullet_down infinite ;
+  animation: 3s bullet_down infinite ;
+}
+
+@-webkit-keyframes bullet_down {
+  0% {
+    -webkit-transform:translate(0px,0px);
+  }
+  100% {
+    -webkit-transform:translate(0,460px);
+  }
+}
+
+@-moz-keyframes bullet_down {
+  0% {
+    -moz-transform:translate(0px,0px);
+  }
+  100% {
+    -moz-transform:translate(0,460px);
+  }
+}
+
+@keyframes bullet_down {
+  0% {
+    transform:translate(0px,0px);
+  }
+  100% {
+    transform:translate(0,460px);
+  }
+}
+
+/*  bullet moves  up */
+#board_bullets a:nth-child(8n + 2) {
+  -webkit-animation: 1.25s bullet_up infinite ;
+  -moz-animation: 1.25s bullet_up infinite ;
+  animation: 1.25s bullet_up infinite ;
+}
+
+#board_bullets a:nth-child(8n + 6) {
+  -webkit-animation: 3.25s bullet_up infinite ;
+  -moz-animation: 3.25s bullet_up infinite ;
+  animation: 3.25s bullet_up infinite ;
+}
+
+@-webkit-keyframes bullet_up  {
+  0% {
+    -webkit-transform:translate(0px,0px);
+  }
+  100% {
+    -webkit-transform:translate(0,-460px);
+  }
+}
+
+@-moz-keyframes bullet_up {
+  0% {
+    -moz-transform:translate(0px,0px);
+  }
+  100% {
+    -moz-transform:translate(0,-460px);
+  }
+}
+
+@keyframes bullet_up {
+  0% {
+    transform:translate(0px,0px);
+  }
+  100% {
+    transform:translate(0,-460px);
+  }
+}
+
+/* bullet moves  left */
+#board_bullets a:nth-child(8n +3) {
+  -webkit-animation: 1.5s bullet_left infinite ;
+  -moz-animation: 1.5s bullet_left infinite ;
+  animation: 1.5s bullet_left infinite ;
+}
+
+#board_bullets a:nth-child(8n +7) {
+  -webkit-animation: 3.5s bullet_left infinite ;
+  -moz-animation: 3.5s bullet_left infinite ;
+  animation: 3.5s bullet_left infinite ;
+}
+
+@-webkit-keyframes bullet_left  {
+  0% {
+    -webkit-transform:translate(0px,0px);
+  }
+  100% {
+    -webkit-transform:translate(-750px, 0px);
+  }
+}
+
+@-moz-keyframes bullet_left {
+  0% {
+    -moz-transform:translate(0px,0px);
+  }
+  100% {
+    -moz-transform:translate(-750px, 0px);
+  }
+}
+
+@keyframes bullet_left {
+  0% {
+    transform:translate(0px,0px);
+  }
+  100% {
+    transform:translate(-750px, 0px);
+  }
+}
+
+/* bullet moves right */
+#board_bullets a:nth-child(8n + 4) {
+  -webkit-animation: 1.75s bullet_right infinite ;
+  -moz-animation: 1.75s bullet_right infinite ;
+  animation: 1.75s bullet_right infinite ;
+}
+
+#board_bullets a:nth-child(8n + 8) {
+  -webkit-animation: 3.75s bullet_right infinite ;
+  -moz-animation: 3.75s bullet_right infinite ;
+  animation: 3.75s bullet_right infinite ;
+}
+
+@-webkit-keyframes bullet_right  {
+  0% {
+    -webkit-transform:translate(0px,0px);
+  }
+  100% {
+    -webkit-transform:translate(750px, 0px);
+  }
+}
+
+@-moz-keyframes bullet_right  {
+  0% {
+    -moz-transform:translate(0px,0px);
+  }
+  100% {
+    -moz-transform:translate(750px, 0px);
+  }
+}
+
+@keyframes bullet_right {
+  0% {
+    transform:translate(0px,0px);
+  }
+  100% {
+    transform:translate(750px, 0px);
+  }
+}
